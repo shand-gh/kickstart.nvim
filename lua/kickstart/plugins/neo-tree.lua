@@ -11,13 +11,16 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<F2>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<S-tab>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
     filesystem = {
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['<F2>'] = 'close_window',
+          ['<S-tab>'] = 'close_window',
         },
       },
     },
