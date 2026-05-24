@@ -92,8 +92,15 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 --  See `:help hlsearch`
 vim.keymap.set('n', '<C-n>', '<cmd>set relativenumber!<CR>')
 
+vim.keymap.set('n', 'Q', 'gwip', { desc = 'Format current paragraph' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+vim.diagnostic.config {
+  virtual_text = { severity = { min = vim.diagnostic.severity.INFO } },
+  signs = { severity = { min = vim.diagnostic.severity.INFO } },
+}
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -130,6 +137,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Set textwidth to 120 for Markdown',
+  pattern = 'markdown',
+  group = vim.api.nvim_create_augroup('markdown-textwidth', { clear = true }),
+  callback = function()
+    vim.opt_local.textwidth = 120
+    vim.opt_local.colorcolumn = '121'
+    vim.opt_local.formatoptions:append 't'
   end,
 })
 
